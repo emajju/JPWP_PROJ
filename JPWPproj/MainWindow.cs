@@ -7,55 +7,105 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
+using System.Diagnostics;
 
 namespace JPWPproj
 {
     public partial class MainWindow : Form
     {
-        private int _y;
-        private int _x;
-
+        
+        Stopwatch stopwatch = new Stopwatch();
+        GraphicsDrawing graphicsDrawing = new GraphicsDrawing();
+        Ship ship = new Ship();
         public MainWindow()
         {
             InitializeComponent();
-            _y = 50;
-            _x = 50;
+
+            graphicsDrawing.addObjectToDraw(ship);
+            ship.defineGraphics(graphicsDrawing);
+            
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         { //First window load after start app
-            LoadFirstButtons(sender);
+            
         }
 
         private void MainWindow_Paint(object sender, PaintEventArgs e)
-        { //Drawing window
-            //Console.WriteLine("Paint");
-            e.Graphics.FillRectangle(Brushes.BurlyWood, _x, _y, 100, 100);
+        { 
+            
+            graphicsDrawing.draw(e);
         }
 
         private void tmrPaintScreen_Tick(object sender, EventArgs e)
         {
+            stopwatch.Start();
+            //smooth keys are done here
+            checkSmoothKeys();
+
+
+
            //Do all math here
             Invalidate(); //Redraw window every 20ms 50fps
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.Elapsed);
+            stopwatch.Reset();
         }
 
-        private void LoadFirstButtons(object sender)
+        private void LoadFirstInfoText(object sender)
         {
-            var startButton = new Button();
-            startButton.Text = "Start";
-            Point loc = new Point(500, 200);
-            startButton.Location = loc;
-            startButton.Visible = true;
+            
                 
         }
 
-        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        private void checkSmoothKeys() //Keys used to move ship have to work without interrupts
         {
-            Console.WriteLine(e.KeyCode);
-            if (e.KeyCode == Keys.Escape)
+            
+            if (Keyboard.IsKeyDown(Key.Up))
             {
-                this.Close();
+                ship.changePosition(0, -10);
+                Console.WriteLine("Keyup detected!");
             }
+            else if (Keyboard.IsKeyDown(Key.Down))
+            {
+                ship.changePosition(0, 10);
+                Console.WriteLine("Keydown detected!");
+            }
+        }
+
+        private void MainWindow_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Keys used with interrupts.
+        {
+            //Console.WriteLine(e.KeyCode);
+
+            switch (e.KeyCode)
+            {
+                case Keys.Space://For optimising space is first
+                    ship.createBullet();
+                    break;
+
+                case Keys.F1:
+                    throw new NotImplementedException();
+                    break;
+                case Keys.F2:
+                    throw new NotImplementedException();
+                    break;
+                case Keys.F3:
+                    throw new NotImplementedException();
+                    break;
+                case Keys.F4:
+                    throw new NotImplementedException();
+                    break;
+
+                case Keys.Escape:
+                    this.Close();
+                    break;
+
+                default:
+                    break;
+            }
+           
+            
         }
 
        

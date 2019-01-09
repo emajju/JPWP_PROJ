@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tmrPaintScreen = new System.Windows.Forms.Timer(this.components);
+            this.InitLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tmrPaintScreen
@@ -38,12 +39,23 @@
             this.tmrPaintScreen.Interval = 20;
             this.tmrPaintScreen.Tick += new System.EventHandler(this.tmrPaintScreen_Tick);
             // 
+            // InitLabel
+            // 
+            this.InitLabel.AutoSize = true;
+            this.InitLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.InitLabel.Location = new System.Drawing.Point(408, 42);
+            this.InitLabel.Name = "InitLabel";
+            this.InitLabel.Size = new System.Drawing.Size(440, 275);
+            this.InitLabel.TabIndex = 0;
+            this.InitLabel.Text = "Witaj\r\nF1 - Pomoc\r\nF2 - Rozpocznij grę\r\nF3 - Zatrzymaj grę\r\nF4 - Zakończ grę";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 985);
             this.ControlBox = false;
+            this.Controls.Add(this.InitLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainWindow";
@@ -52,12 +64,14 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainWindow_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainWindow_KeyDown);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.Timer tmrPaintScreen;
+        private System.Windows.Forms.Label InitLabel;
     }
 }
 
