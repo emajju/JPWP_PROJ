@@ -18,6 +18,7 @@ namespace JPWPproj
         Stopwatch stopwatch = new Stopwatch();
         GraphicsDrawing graphicsDrawing = new GraphicsDrawing();
         Ship ship = new Ship();
+        int spaceSlower = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -72,6 +73,18 @@ namespace JPWPproj
                 ship.changePosition(0, 10);
                 Console.WriteLine("Keydown detected!");
             }
+            if(Keyboard.IsKeyDown(Key.Space))//obsługa nieblokująca
+            {
+                spaceSlower++;
+                if(spaceSlower >= 3)
+                {
+                    ship.createBullet();
+                    spaceSlower = 0;
+                    Random r = new Random();
+                    int rInt = r.Next(200,800); //for ints
+                    graphicsDrawing.addObjectToDraw(new Target(1000,rInt));
+                }
+            }
         }
 
         private void MainWindow_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)//Keys used with interrupts.
@@ -80,12 +93,10 @@ namespace JPWPproj
 
             switch (e.KeyCode)
             {
-                case Keys.Space://For optimising space is first
-                    ship.createBullet();
-                    break;
+                
 
                 case Keys.F1:
-                    throw new NotImplementedException();
+                    graphicsDrawing.addObjectToDraw(new Target(900, 500));
                     break;
                 case Keys.F2:
                     throw new NotImplementedException();
@@ -94,7 +105,7 @@ namespace JPWPproj
                     throw new NotImplementedException();
                     break;
                 case Keys.F4:
-                    throw new NotImplementedException();
+                    this.Close();
                     break;
 
                 case Keys.Escape:

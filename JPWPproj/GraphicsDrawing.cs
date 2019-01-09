@@ -21,6 +21,8 @@ namespace JPWPproj
                
             }
             findHiddenObj();
+            findCollisions();
+            listCleanup();
         }
 
         public void addObjectToDraw(MovingObject obj)
@@ -39,12 +41,42 @@ namespace JPWPproj
             {
                 if (objectsToDraw[i].acutalPosition.X > 1000)
                 {
-                    deleteObjectFromList(objectsToDraw[i]);
+                    objectsToDraw[i].toDelete = true;
                     continue;
                 }
                     
                 if (objectsToDraw[i].acutalPosition.Y > 1000)
+                    objectsToDraw[i].toDelete = true;
+            }
+        }
+
+        private void findCollisions()
+        {
+            for (int x = 0; x < objectsToDraw.Count; x++)
+            {
+                for (int y = 0; y < objectsToDraw.Count; y++)
+                {
+                    
+                    if (objectsToDraw[x].isColliding(objectsToDraw[y]))
+                    {
+                        objectsToDraw[x].collideEvent();
+                        objectsToDraw[y].collideEvent();
+                        objectsToDraw[x].toDelete = true;
+                        objectsToDraw[y].toDelete = true;
+                        continue;
+                    }
+                }
+            }
+        }
+
+        private void listCleanup()
+        {
+            for (int i = objectsToDraw.Count-1; i > 0; i--)//backward wont generate errors
+            {
+                if (objectsToDraw[i].toDelete)
+                {
                     deleteObjectFromList(objectsToDraw[i]);
+                }
             }
         }
     }

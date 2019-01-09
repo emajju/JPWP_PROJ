@@ -48,6 +48,7 @@
             this.InitLabel.Size = new System.Drawing.Size(440, 275);
             this.InitLabel.TabIndex = 0;
             this.InitLabel.Text = "Witaj\r\nF1 - Pomoc\r\nF2 - Rozpocznij grę\r\nF3 - Zatrzymaj grę\r\nF4 - Zakończ grę";
+            this.InitLabel.Visible = false;
             // 
             // MainWindow
             // 

@@ -16,17 +16,29 @@ namespace JPWPproj
             this.acutalPosition.Y = y;
         }
 
+        public override void collideEvent()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void Draw(PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(Brushes.Bisque, this.acutalPosition.X, this.acutalPosition.Y, 10, 10);
+            e.Graphics.FillEllipse(Brushes.Bisque, this.acutalPosition.X, this.acutalPosition.Y, 10, 10);
             refreshPosition();
         }
 
         public override bool isColliding(MovingObject toCheck)
         {
+            int distance = 0;
+            if(toCheck is Target)
+            {
 
+                distance = (int)Math.Sqrt((double)(Math.Pow((acutalPosition.X - toCheck.acutalPosition.X), 2) + Math.Pow((acutalPosition.Y - toCheck.acutalPosition.Y), 2)));
+                if (distance <= 35)
+                    return true;
+            }
 
-            throw new NotImplementedException();
+            return false;
         }
 
         protected override void refreshPosition()

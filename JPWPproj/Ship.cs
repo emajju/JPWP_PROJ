@@ -29,7 +29,7 @@ namespace JPWPproj
 
         public override bool isColliding(MovingObject toCheck)
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         protected override void refreshPosition()
@@ -57,10 +57,14 @@ namespace JPWPproj
 
         public void createBullet()
         {
-            Bullet temp = new Bullet( acutalPosition.X + 110, acutalPosition.Y);
+            Bullet temp = new Bullet( acutalPosition.X + 110, acutalPosition.Y+50);
                        
             graphicsDrawing.addObjectToDraw(temp);
         }
 
+        public override void collideEvent()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

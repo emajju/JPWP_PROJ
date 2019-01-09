@@ -19,11 +19,12 @@ namespace JPWPproj
         public int outlineType;
         public Point acutalPosition;
         public int objType;
-
+        public bool toDelete = false;
 
         public abstract bool isColliding(MovingObject toCheck);
         public abstract void Draw(PaintEventArgs e);
         protected abstract void refreshPosition();
+        public abstract void collideEvent();
                        
         
 
