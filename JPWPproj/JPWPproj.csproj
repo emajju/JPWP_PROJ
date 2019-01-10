@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="GraphicsDrawing.cs" />
+    <Compile Include="Logic.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

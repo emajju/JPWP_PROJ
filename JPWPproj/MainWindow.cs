@@ -18,11 +18,12 @@ namespace JPWPproj
         Stopwatch stopwatch = new Stopwatch();
         GraphicsDrawing graphicsDrawing = new GraphicsDrawing();
         Ship ship = new Ship();
+        Logic logic;
         int spaceSlower = 0;
         public MainWindow()
         {
             InitializeComponent();
-
+            logic = new Logic(graphicsDrawing, this);
             graphicsDrawing.addObjectToDraw(ship);
             ship.defineGraphics(graphicsDrawing);
             
@@ -35,7 +36,6 @@ namespace JPWPproj
 
         private void MainWindow_Paint(object sender, PaintEventArgs e)
         { 
-            
             graphicsDrawing.draw(e);
         }
 
@@ -82,7 +82,7 @@ namespace JPWPproj
                     spaceSlower = 0;
                     Random r = new Random();
                     int rInt = r.Next(200,800); //for ints
-                    graphicsDrawing.addObjectToDraw(new Target(1000,rInt));
+                    //graphicsDrawing.addObjectToDraw(new Target(1000,rInt));
                 }
             }
         }
@@ -96,16 +96,19 @@ namespace JPWPproj
                 
 
                 case Keys.F1:
-                    graphicsDrawing.addObjectToDraw(new Target(900, 500));
+                    logic.pauseGame();
+                    showHelp();
                     break;
                 case Keys.F2:
-                    throw new NotImplementedException();
+                    InitLabel.Hide();
+                    logic.startGame();
                     break;
                 case Keys.F3:
-                    throw new NotImplementedException();
+                    logic.stopGame();
+                    InitLabel.Show();
                     break;
                 case Keys.F4:
-                    this.Close();
+                    endGameButton();
                     break;
 
                 case Keys.Escape:
@@ -119,6 +122,16 @@ namespace JPWPproj
             
         }
 
-       
+        private void showHelp()
+        {
+
+            throw new NotImplementedException();
+        
+        }
+
+        private void endGameButton()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

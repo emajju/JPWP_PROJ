@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.tmrPaintScreen = new System.Windows.Forms.Timer(this.components);
             this.InitLabel = new System.Windows.Forms.Label();
+            this.scoreLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tmrPaintScreen
@@ -50,16 +51,28 @@
             this.InitLabel.Text = "Witaj\r\nF1 - Pomoc\r\nF2 - Rozpocznij grę\r\nF3 - Zatrzymaj grę\r\nF4 - Zakończ grę";
             this.InitLabel.Visible = false;
             // 
+            // scoreLabel
+            // 
+            this.scoreLabel.AutoSize = true;
+            this.scoreLabel.Location = new System.Drawing.Point(1070, 9);
+            this.scoreLabel.Name = "scoreLabel";
+            this.scoreLabel.Size = new System.Drawing.Size(35, 13);
+            this.scoreLabel.TabIndex = 1;
+            this.scoreLabel.Text = "label1";
+            this.scoreLabel.Visible = false;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1264, 985);
+            this.ClientSize = new System.Drawing.Size(1200, 800);
             this.ControlBox = false;
+            this.Controls.Add(this.scoreLabel);
             this.Controls.Add(this.InitLabel);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tin Shooter";
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.MainWindow_Paint);
@@ -73,6 +86,7 @@
 
         private System.Windows.Forms.Timer tmrPaintScreen;
         private System.Windows.Forms.Label InitLabel;
+        public System.Windows.Forms.Label scoreLabel;
     }
 }
 

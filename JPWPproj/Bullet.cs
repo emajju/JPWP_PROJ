@@ -18,7 +18,8 @@ namespace JPWPproj
 
         public override void collideEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Console.WriteLine("Kolizja!");
         }
 
         public override void Draw(PaintEventArgs e)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace JPWPproj
@@ -11,42 +11,80 @@ namespace JPWPproj
     class GraphicsDrawing
     {
         private List<MovingObject> objectsToDraw = new List<MovingObject>();
-        
+
+        bool inUse = false;
 
         public void draw (PaintEventArgs e)
         {
+            while (inUse)
+            {
+                Thread.Sleep(1);
+            }
+            inUse = true;
             foreach (var obj in objectsToDraw)
             {
                 obj.Draw(e);
                
             }
+            Console.WriteLine("Do narysowania "+objectsToDraw.Count);
+            inUse = false;
             findHiddenObj();
             findCollisions();
             listCleanup();
+            
         }
 
         public void addObjectToDraw(MovingObject obj)
         {
+            while (inUse)
+            {
+                Thread.Sleep(1);
+            }
+            inUse = true;
             objectsToDraw.Add(obj);
+            inUse = false;
         }
 
         public void deleteObjectFromList(MovingObject obj)
         {
+            while (inUse)
+            {
+                Thread.Sleep(1);
+            }
+            inUse = true;
             objectsToDraw.Remove(obj);
+            inUse = false;
         }
 
         private void findHiddenObj()
         {
             for (int i = 0; i < objectsToDraw.Count; i++)          
             {
-                if (objectsToDraw[i].acutalPosition.X > 1000)
+                if (objectsToDraw[i].acutalPosition.X > 1201)
                 {
                     objectsToDraw[i].toDelete = true;
                     continue;
                 }
                     
-                if (objectsToDraw[i].acutalPosition.Y > 1000)
+                if (objectsToDraw[i].acutalPosition.Y > 800)
+                {
                     objectsToDraw[i].toDelete = true;
+                    continue;
+                }
+
+                if (objectsToDraw[i].acutalPosition.Y < 2)
+                {
+                    objectsToDraw[i].toDelete = true;
+                    continue;
+                }
+
+                if (objectsToDraw[i].acutalPosition.X < 2)
+                {
+                    objectsToDraw[i].toDelete = true;
+                    continue;
+                }
+
+
             }
         }
 

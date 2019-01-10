@@ -23,7 +23,8 @@ namespace JPWPproj
 
         public override void collideEvent()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Console.WriteLine("Kolizja!");
         }
 
         public override void Draw(PaintEventArgs e)
@@ -40,7 +41,7 @@ namespace JPWPproj
         protected override void refreshPosition()
         {
             acutalPosition.X -= 5;
-            acutalPosition.Y = startingPoint.Y - (int)(Math.Sin((double)acutalPosition.X/50.00)*100)+ (int)(Math.Sin((double)acutalPosition.X / 40.00) * 150);
+            acutalPosition.Y = startingPoint.Y - (int)(Math.Sin((double)acutalPosition.X/50.00)*50)+ (int)(Math.Sin((double)acutalPosition.X / 40.00) * 75);
         }
     }
 }
