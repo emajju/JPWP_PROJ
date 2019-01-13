@@ -136,7 +136,7 @@ namespace JPWPproj
 
         public void pauseGame()
         {
-            timer.Enabled = false;
+            if (timer != null) timer.Enabled = false;
             Window.tmrPaintScreen.Stop();
             if(score > 1200)
             {

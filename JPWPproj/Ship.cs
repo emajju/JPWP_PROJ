@@ -11,7 +11,7 @@ namespace JPWPproj
     class Ship : MovingObject
     {
         GraphicsDrawing graphicsDrawing;
-
+        Image newImage = Image.FromFile("space-ship-hi.png");
         public Ship()
         {
             acutalPosition = new Point(50, 50);
@@ -24,7 +24,8 @@ namespace JPWPproj
 
         public override void Draw(PaintEventArgs e)
         {
-            e.Graphics.FillRectangle(Brushes.BurlyWood, this.acutalPosition.X, this.acutalPosition.Y, 100, 100);
+            //e.Graphics.FillRectangle(Brushes.BurlyWood, this.acutalPosition.X, this.acutalPosition.Y, 100, 100);
+            e.Graphics.DrawImage(newImage, acutalPosition.X, acutalPosition.Y);
         }
 
         public override bool isColliding(MovingObject toCheck)
@@ -57,7 +58,7 @@ namespace JPWPproj
 
         public void createBullet()
         {
-            Bullet temp = new Bullet( acutalPosition.X + 110, acutalPosition.Y+50);
+            Bullet temp = new Bullet( acutalPosition.X + 95, acutalPosition.Y+22);
                        
             graphicsDrawing.addObjectToDraw(temp);
         }
