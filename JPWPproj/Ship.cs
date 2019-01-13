@@ -44,11 +44,11 @@ namespace JPWPproj
 
         public void changePosition (int x, int y)
         {
-            if(acutalPosition.Y >= 10 && acutalPosition.Y <= 814)
+            if(acutalPosition.Y >= 10 && acutalPosition.Y <= 700)
             this.acutalPosition.Y += y;
             else if(acutalPosition.Y<10 && y>=0)
                 this.acutalPosition.Y += y;
-            else if(acutalPosition.Y > 814 && y<=0)
+            else if(acutalPosition.Y > 699 && y<=0)
                 this.acutalPosition.Y += y;
 
 
@@ -62,9 +62,6 @@ namespace JPWPproj
             graphicsDrawing.addObjectToDraw(temp);
         }
 
-        public override void collideEvent()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

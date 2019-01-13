@@ -16,11 +16,7 @@ namespace JPWPproj
             this.acutalPosition.Y = y;
         }
 
-        public override void collideEvent()
-        {
-            //throw new NotImplementedException();
-            Console.WriteLine("Kolizja!");
-        }
+        
 
         public override void Draw(PaintEventArgs e)
         {

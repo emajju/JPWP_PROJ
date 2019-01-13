@@ -14,7 +14,7 @@ namespace JPWPproj
 {
     public abstract class MovingObject
     {
-
+        public bool collideDetected = false;
         public int moveEquationType;
         public int outlineType;
         public Point acutalPosition;
@@ -24,9 +24,13 @@ namespace JPWPproj
         public abstract bool isColliding(MovingObject toCheck);
         public abstract void Draw(PaintEventArgs e);
         protected abstract void refreshPosition();
-        public abstract void collideEvent();
-                       
-        
+        public void collideEvent()
+        {
+            collideDetected = true;
+        }
+
+
+
 
     }
 

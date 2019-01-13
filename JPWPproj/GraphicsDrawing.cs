@@ -14,11 +14,31 @@ namespace JPWPproj
 
         bool inUse = false;
 
+        int lastCounter = 0;
+
+        public void dumpObjects()
+
+        {
+            while (inUse)
+            {
+                // Thread.Sleep(1);
+            }
+            inUse = true;
+            foreach (var item in objectsToDraw)
+            {
+                if(!(item is Ship))
+                {
+                    item.toDelete = true;
+                }
+            }
+            inUse = false;
+        }
+
         public void draw (PaintEventArgs e)
         {
             while (inUse)
             {
-                Thread.Sleep(1);
+               // Thread.Sleep(1);
             }
             inUse = true;
             foreach (var obj in objectsToDraw)
@@ -38,7 +58,7 @@ namespace JPWPproj
         {
             while (inUse)
             {
-                Thread.Sleep(1);
+               // Thread.Sleep(1);
             }
             inUse = true;
             objectsToDraw.Add(obj);
@@ -47,49 +67,58 @@ namespace JPWPproj
 
         public void deleteObjectFromList(MovingObject obj)
         {
-            while (inUse)
-            {
-                Thread.Sleep(1);
-            }
-            inUse = true;
+           
             objectsToDraw.Remove(obj);
             inUse = false;
         }
 
         private void findHiddenObj()
         {
+            while (inUse)
+            {
+                //  Thread.Sleep(1);
+            }
+            inUse = true;
             for (int i = 0; i < objectsToDraw.Count; i++)          
             {
+                if (objectsToDraw[i] == null)
+                {
+                    break;
+                }
+
                 if (objectsToDraw[i].acutalPosition.X > 1201)
                 {
                     objectsToDraw[i].toDelete = true;
                     continue;
                 }
                     
-                if (objectsToDraw[i].acutalPosition.Y > 800)
+                else if (objectsToDraw[i].acutalPosition.Y > 800)
                 {
                     objectsToDraw[i].toDelete = true;
                     continue;
                 }
 
-                if (objectsToDraw[i].acutalPosition.Y < 2)
+                else if(objectsToDraw[i].acutalPosition.Y < 2)
                 {
                     objectsToDraw[i].toDelete = true;
                     continue;
                 }
 
-                if (objectsToDraw[i].acutalPosition.X < 2)
+                else if(objectsToDraw[i].acutalPosition.X < 2)
                 {
-                    objectsToDraw[i].toDelete = true;
+                    //objectsToDraw[i].toDelete = true; //Przekroczenie lewej ściany
+                    objectsToDraw[i].collideEvent();
                     continue;
                 }
 
 
             }
+            inUse = false;
         }
 
         private void findCollisions()
         {
+            lastCounter = 0;
             for (int x = 0; x < objectsToDraw.Count; x++)
             {
                 for (int y = 0; y < objectsToDraw.Count; y++)
@@ -99,8 +128,7 @@ namespace JPWPproj
                     {
                         objectsToDraw[x].collideEvent();
                         objectsToDraw[y].collideEvent();
-                        objectsToDraw[x].toDelete = true;
-                        objectsToDraw[y].toDelete = true;
+                        
                         continue;
                     }
                 }
@@ -116,6 +144,26 @@ namespace JPWPproj
                     deleteObjectFromList(objectsToDraw[i]);
                 }
             }
+        }
+
+        public MovingObject getNextColliding()
+        {
+            for (int i = lastCounter; i < objectsToDraw.Count; i++)
+            {
+                if (objectsToDraw[i] == null)
+                {
+                    lastCounter++;
+                    return null;
+                }
+                if (objectsToDraw[i].collideDetected)
+                {
+                    objectsToDraw[i].toDelete = true;
+                    lastCounter = i+1;
+                    return objectsToDraw[i];
+                }
+            }
+            
+            return null;
         }
     }
 }

@@ -9,9 +9,12 @@ using System.Windows.Forms;
 
 namespace JPWPproj
 {
-    class Target : MovingObject
+    internal class Target : MovingObject
     {
         Point startingPoint;
+
+        internal Brush Brush;
+
 
         public Target(int x, int y)
         {
@@ -19,17 +22,19 @@ namespace JPWPproj
             startingPoint.Y = y;
             this.acutalPosition.X = x;
             this.acutalPosition.Y = y;
+            Brush = Brushes.Plum;
         }
 
-        public override void collideEvent()
+        
+
+        public void setBrush(Brush brush)
         {
-            //throw new NotImplementedException();
-            Console.WriteLine("Kolizja!");
+            Brush = brush;
         }
 
         public override void Draw(PaintEventArgs e)
         {
-            e.Graphics.FillEllipse(Brushes.Plum, this.acutalPosition.X, this.acutalPosition.Y, 25, 25);
+            e.Graphics.FillEllipse(Brush, this.acutalPosition.X, this.acutalPosition.Y, 25, 25);
             refreshPosition();
         }
 
@@ -40,8 +45,8 @@ namespace JPWPproj
 
         protected override void refreshPosition()
         {
-            acutalPosition.X -= 5;
-            acutalPosition.Y = startingPoint.Y - (int)(Math.Sin((double)acutalPosition.X/50.00)*50)+ (int)(Math.Sin((double)acutalPosition.X / 40.00) * 75);
+            acutalPosition.X -= 3;
+            acutalPosition.Y = startingPoint.Y - (int)(Math.Sin((double)acutalPosition.X/23.00)*52)+ (int)(Math.Cos((double)acutalPosition.X / 37.00) * 78);
         }
     }
 }

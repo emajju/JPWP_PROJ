@@ -14,14 +14,16 @@ namespace JPWPproj
 {
     public partial class MainWindow : Form
     {
-        
+        Graphics pb2graphics;
         Stopwatch stopwatch = new Stopwatch();
         GraphicsDrawing graphicsDrawing = new GraphicsDrawing();
         Ship ship = new Ship();
         Logic logic;
+        internal ResistorBars resistor = new ResistorBars();
         int spaceSlower = 0;
         public MainWindow()
         {
+            
             InitializeComponent();
             logic = new Logic(graphicsDrawing, this);
             graphicsDrawing.addObjectToDraw(ship);
@@ -31,17 +33,32 @@ namespace JPWPproj
 
         private void MainWindow_Load(object sender, EventArgs e)
         { //First window load after start app
-            
+           pb2graphics= pictureBox2.CreateGraphics();
         }
 
         private void MainWindow_Paint(object sender, PaintEventArgs e)
-        { 
+        {
+            stopwatch.Start();
             graphicsDrawing.draw(e);
+            resistor.drawBars(pb2graphics);
+            logic.processCollisions();
+            logic.refreshScore();
+            logic.writeValue();
+            logic.checkPoints();
+            logic.writeEndedCount();
+
+
+            stopwatch.Stop();
+            Console.WriteLine(stopwatch.Elapsed);
+            
+            stopwatch.Reset();
         }
+
+       
 
         private void tmrPaintScreen_Tick(object sender, EventArgs e)
         {
-            stopwatch.Start();
+            
             //smooth keys are done here
             checkSmoothKeys();
 
@@ -49,16 +66,10 @@ namespace JPWPproj
 
            //Do all math here
             Invalidate(); //Redraw window every 20ms 50fps
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.Elapsed);
-            stopwatch.Reset();
+            
         }
 
-        private void LoadFirstInfoText(object sender)
-        {
-            
-                
-        }
+      
 
         private void checkSmoothKeys() //Keys used to move ship have to work without interrupts
         {
@@ -98,6 +109,7 @@ namespace JPWPproj
                 case Keys.F1:
                     logic.pauseGame();
                     showHelp();
+                    InitLabel.Hide();
                     break;
                 case Keys.F2:
                     InitLabel.Hide();
@@ -118,20 +130,24 @@ namespace JPWPproj
                 default:
                     break;
             }
-           
-            
+                       
         }
 
         private void showHelp()
         {
-
-            throw new NotImplementedException();
-        
+            logic.pauseGame();
+            helpPictureBox.Show();        
         }
 
         private void endGameButton()
         {
-            throw new NotImplementedException();
+            DialogResult quitBox = MessageBox.Show("Czy chcesz opuścić grę?", "Wyjście", MessageBoxButtons.YesNo);
+            if(quitBox ==DialogResult.Yes)
+            {
+                this.Close();
+            }
         }
+
+      
     }
 }
